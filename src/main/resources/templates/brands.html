@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Brands</title>
+</head>
+<body>
+
+<h1>Brands</h1>
+
+<nav>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/categories}">Categories</a>
+    <a th:href="@{/brands}">Brands</a>
+</nav>
+
+<a th:href="@{/brands/new}">Add New Brand</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Slug</th>
+        <th>Active</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="brand : ${brands}">
+        <td th:text="${brand.name}"></td>
+        <td th:text="${brand.slug}"></td>
+        <td th:text="${brand.active}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

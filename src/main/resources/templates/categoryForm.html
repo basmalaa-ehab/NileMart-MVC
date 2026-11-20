@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Category</title>
+</head>
+<body>
+
+<h1>Add New Category</h1>
+
+<nav>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/categories}">Categories</a>
+    <a th:href="@{/brands}">Brands</a>
+</nav>
+
+<form th:action="@{/categories}" th:object="${category}" method="post">
+
+    <label>Name:</label>
+    <input type="text" th:field="*{name}">
+    <span th:errors="*{name}"></span>
+    <br>
+
+    <label>Slug:</label>
+    <input type="text" th:field="*{slug}">
+    <span th:errors="*{slug}"></span>
+    <br>
+
+    <label>Parent Category:</label>
+    <select th:field="*{parentSlug}">
+        <option value="">None (top level)</option>
+        <option th:each="parent : ${parentCategories}"
+                th:value="${parent.slug}"
+                th:text="${parent.name}">
+        </option>
+    </select>
+    <br>
+
+    <label>Display Order:</label>
+    <input type="number" th:field="*{displayOrder}">
+    <span th:errors="*{displayOrder}"></span>
+    <br>
+
+    <label>Active:</label>
+    <input type="checkbox" th:field="*{active}">
+    <br>
+
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <p th:each="error : ${#fields.globalErrors()}"
+           th:text="${error}">
+        </p>
+    </div>
+
+    <button type="submit">Save Category</button>
+
+</form>
+<a th:href="@{/categories}">Back to Categories</a>
+</body>
+</html>

@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nile-Mart Products</title>
+</head>
+<body>
+
+<h1>Products</h1>
+
+<nav>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/categories}">Categories</a>
+    <a th:href="@{/brands}">Brands</a>
+</nav>
+
+<a th:href="@{/new}">Add New Product</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Category</th>
+        <th>Brand</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.sku}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.stockQuantity}"></td>
+
+        <td>
+            <span th:each="category : ${categories}"
+                  th:if="${category.slug == product.category}"
+                  th:text="${category.name}">
+            </span>
+        </td>
+
+        <td>
+            <span th:if="${product.brandSlug == null or product.brandSlug.isEmpty()}">—</span>
+
+            <span th:each="brand : ${brands}"
+                  th:if="${brand.slug == product.brandSlug}"
+                  th:text="${brand.name}">
+            </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
